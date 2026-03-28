@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafbff;
+  --foreground: #1a1a2e;
+  --accent: #6c5ce7;
+  --accent-light: #a29bfe;
+  --accent-subtle: rgba(108, 92, 231, 0.08);
+  --accent-glow: rgba(108, 92, 231, 0.15);
+  --surface: #ffffff;
+  --surface-alt: #f4f3ff;
+  --muted: #8b8ba3;
+  --border: #e8e6f0;
+  --border-hover: #d0cde6;
+  --success: #00b894;
+  --warning: #fdcb6e;
+  --danger: #e17055;
+}
+
+@theme {
+  --color-accent: #6c5ce7;
+  --color-accent-light: #a29bfe;
+  --color-accent-subtle: rgba(108, 92, 231, 0.08);
+  --color-surface-alt: #f4f3ff;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 0% 0%, rgba(108, 92, 231, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 100% 100%, rgba(162, 155, 254, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+  margin: 0;
+}
+
+/* ───────────────────────────────────────
+   DISTINCTIVE CARD SHAPES
+   Asymmetric radii for a premium feel
+──────────────────────────────────────── */
+
+/* Primary card: large TL + BR, snapped TR + BL */
+.card-asym {
+  border-radius: 2rem 0.75rem 2rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 1px 2px rgba(108, 92, 231, 0.04),
+    0 8px 24px rgba(108, 92, 231, 0.06);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.card-asym::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 60%;
+  background: linear-gradient(180deg, var(--accent), transparent);
+  border-radius: 0 0 2px 0;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.card-asym:hover {
+  border-color: var(--border-hover);
+  box-shadow:
+    0 1px 2px rgba(108, 92, 231, 0.06),
+    0 20px 48px rgba(108, 92, 231, 0.1);
+  transform: translateY(-3px);
+}
+.card-asym:hover::before { opacity: 1; }
+
+/* Alternate card: reversed asymmetry */
+.card-asym-alt {
+  border-radius: 0.75rem 2rem 0.75rem 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(108, 92, 231, 0.05);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.card-asym-alt::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-light));
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.card-asym-alt:hover { transform: translateY(-2px); }
+.card-asym-alt:hover::after { opacity: 1; }
+
+/* Sliced corner card — for panels and highlights */
+.card-sliced {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 2rem 100%, 0 calc(100% - 2rem));
+  padding: 2.5rem;
+  transition: all 0.35s;
+}
+.card-sliced:hover {
+  box-shadow: 0 12px 32px rgba(108, 92, 231, 0.1);
+}
+
+/* ───────────────────────────────────────
+   GRADIENT BORDER WRAPPER
+──────────────────────────────────────── */
+.gradient-border {
+  position: relative;
+  background: var(--surface);
+  border-radius: 1.5rem;
+  z-index: 0;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light), var(--border));
+  z-index: -1;
+}
+
+/* ───────────────────────────────────────
+   DISTINCTIVE BUTTONS
+──────────────────────────────────────── */
+
+/* Primary gradient with chamfered shape */
+.btn-accent {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 1rem 0.375rem 1rem 0.375rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.btn-accent::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.btn-accent:hover::before { opacity: 1; }
+.btn-accent:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3); }
+.btn-accent span { position: relative; z-index: 1; }
+
+/* Secondary outline with angled corners */
+.btn-outline {
+  background: var(--surface);
+  color: var(--foreground);
+  font-weight: 700;
+  border: 1.5px solid var(--border);
+  border-radius: 0.375rem 1rem 0.375rem 1rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 4px 16px rgba(108, 92, 231, 0.1);
+}
+
+/* ───────────────────────────────────────
+   DISTINCTIVE TAGS / BADGES
+──────────────────────────────────────── */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 1rem;
+  font-size: 0.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 0.75rem 0.25rem 0.75rem 0.25rem;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border: 1px solid rgba(108, 92, 231, 0.12);
+}
+
+/* ───────────────────────────────────────
+   PROGRESS BAR WITH SHIMMER
+──────────────────────────────────────── */
+.progress-accent {
+  background: linear-gradient(90deg, #6c5ce7, #a29bfe, #6c5ce7);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+  border-radius: 999px;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ───────────────────────────────────────
+   DECORATIVE CORNER ORNAMENT
+   Add class to a relative container
+──────────────────────────────────────── */
+.corner-ornament::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* ───────────────────────────────────────
+   GLASS PANEL
+──────────────────────────────────────── */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(108, 92, 231, 0.08);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ───────────────────────────────────────
+   DOT GRID TEXTURE
+──────────────────────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(108, 92, 231, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ───────────────────────────────────────
+   TABLE WITH ANGLED HEADER
+──────────────────────────────────────── */
+.table-distinctive thead tr {
+  background: var(--surface-alt);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0.5rem 100%);
+}
+
+/* ───────────────────────────────────────
+   ANIMATIONS
+──────────────────────────────────────── */
+@keyframes float {
+  0% { transform: translateY(0px) }
+  50% { transform: translateY(-10px) }
+  100% { transform: translateY(0px) }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ───────────────────────────────────────
+   CAROUSEL
+──────────────────────────────────────── */
+.carousel-mask {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-432px * 8 - 2rem * 8)); }
+}
+.animate-scroll {
+  display: flex;
+  width: max-content;
+  animation: scroll 35s linear infinite;
+}
+.animate-scroll:hover { animation-play-state: paused; }
+
+/* ───────────────────────────────────────
+   SIDEBAR ACTIVE INDICATOR
+──────────────────────────────────────── */
+.sidebar-active {
+  position: relative;
+}
+.sidebar-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: linear-gradient(180deg, var(--accent), var(--accent-light));
+  border-radius: 0 4px 4px 0;
+}
+
+/* ───────────────────────────────────────
+   SCORE RING (for big numbers)
+──────────────────────────────────────── */
+.score-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.score-ring::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 1.75rem 0.5rem 1.75rem 0.5rem;
+  border: 2px solid var(--accent-glow);
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.03); }
+}
