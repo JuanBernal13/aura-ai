@@ -1,4 +1,3 @@
-# Node.js
 node_modules/
 dist/
 build/
@@ -12,7 +11,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Python
+
 __pycache__/
 *.py[cod]
 *$py.class
@@ -28,15 +27,13 @@ poetry.lock
 .mypy_cache/
 .pytest_cache/
 
-# Docker
 .docker/
 
-# IDEs
+
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS
 .DS_Store
 Thumbs.db
